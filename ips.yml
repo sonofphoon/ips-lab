@@ -1,0 +1,45 @@
+name: snort-3_lab
+
+
+
+topology:
+
+  nodes:
+
+    ids:
+
+      kind: linux
+
+      image: ciscotalos/snort3
+
+    server:
+
+      kind: linux
+
+      image: ghcr.io/christophetd/log4shell-vulnerable-app
+
+    router:
+
+      kind: linux
+
+      image: ubuntu:latest
+
+    client:
+
+      kind: linux
+
+      image: alpine:latest
+
+    brdg:
+
+      kind: bridge
+
+  links:
+
+    - endpoints: ["ids:eth1", "brdg:eth1"]
+
+    - endpoints: ["server:eth1", "brdg:eth2"]
+
+    - endpoints: ["router:eth1", "brdg:eth3"]
+
+    - endpoints: ["client:eth1", "router:eth2"]
